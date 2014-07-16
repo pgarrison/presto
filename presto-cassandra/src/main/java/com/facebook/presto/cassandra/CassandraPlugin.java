@@ -13,6 +13,7 @@
  */
 package com.facebook.presto.cassandra;
 
+import com.facebook.presto.metadata.FunctionFactory;
 import com.facebook.presto.spi.ConnectorFactory;
 import com.facebook.presto.spi.Plugin;
 import com.google.common.collect.ImmutableList;
@@ -39,6 +40,9 @@ public class CassandraPlugin
     {
         if (type == ConnectorFactory.class) {
             return ImmutableList.of(type.cast(new CassandraConnectorFactory("cassandra", optionalConfig)));
+        }
+        else if (type == FunctionFactory.class) {
+            return ImmutableList.of(type.cast(new CassandraFunctionFactory()));
         }
         return ImmutableList.of();
     }
